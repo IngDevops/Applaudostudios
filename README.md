@@ -1,2 +1,2 @@
 # Applaudostudios
-Proyecto prueba
+Proyecto demo de conocimientos
