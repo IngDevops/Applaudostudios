@@ -16,14 +16,18 @@
 	<description>Evaluacion Tecnica</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+		<!-- persistencia -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- front-end -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -32,13 +36,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- Security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+		<!-- Mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -69,14 +85,125 @@
 	</dependencies>
 
 
+	<!-- Reporte de checkstyle -->
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>checkstyle</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<build>
+		<!--<finalName>renta-video</finalName> -->
 		<plugins>
+			<!-- Code coverage. -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.4</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>CLASS</element>
+									<excludes>
+									</excludes>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>80%</minimum>
+										</limit>
+									</limits>
+								</rule>
+								<rule>
+									<element>BUNDLE</element>
+									<excludes>
+									</excludes>
+									<limits>
+										<limit>
+											<counter>CLASS</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>80%</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Code quality: PMD -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-pmd-plugin</artifactId> 
+				<version>3.12.0</version> <configuration> <targetJdk>${java.version}</targetJdk> 
+				<includeTests>true</includeTests> <failOnViolation>true</failOnViolation> 
+				<printFailingErrors>true</printFailingErrors> </configuration> </plugin> -->
+			<!-- Code quality: Spotbugs riesgos de seguridad -->
+			<!-- <plugin> <groupId>com.github.spotbugs</groupId> <artifactId>spotbugs-maven-plugin</artifactId> 
+				<version>3.1.12.2</version> <configuration> <effort>Max</effort> <threshold>Low</threshold> 
+				<failOnError>true</failOnError> <plugins> <plugin> <groupId>com.h3xstream.findsecbugs</groupId> 
+				<artifactId>findsecbugs-plugin</artifactId> <version>1.10.1</version> </plugin> 
+				</plugins> </configuration> <executions> <execution> <id>scan</id> <phase>verify</phase> 
+				<goals> <goal>check</goal> </goals> </execution> </executions> </plugin> -->
+
+			<!-- Source code style checking. -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
+				<version>3.1.1</version> <configuration> <configLocation>verificar_checkstyle_config.xml</configLocation> 
+				<encoding>UTF-8</encoding> <includeTestSourceDirectory>true</includeTestSourceDirectory> 
+				<excludes>module-info.java</excludes> <failOnViolation>true</failOnViolation> 
+				<failsOnError>true</failsOnError> <consoleOutput>true</consoleOutput> </configuration> 
+				</plugin> -->
+
+			<!--Analizando vulnerabilidades owasp pluggin -->
+			<!-- <plugin> <groupId>org.owasp</groupId> <artifactId>dependency-check-maven</artifactId> 
+				<version>6.0.2</version> <executions> <execution> <goals> <goal>check</goal> 
+				</goals> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+
+				<configuration>
+					<fork>true</fork>
+					<!-- <executable></executable> -->
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
+		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> </plugins> </build> -->
 
 </project>

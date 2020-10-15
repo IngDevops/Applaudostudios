@@ -25,5 +25,33 @@ public class Role implements Serializable  {
 	
 	@Column
 	private String description;
-	       //Getters, Setters, HashCode, Equals & ToString Functions
+	   
+//Getters, Setters, HashCode, Equals & ToString Functions
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
+	
 }
