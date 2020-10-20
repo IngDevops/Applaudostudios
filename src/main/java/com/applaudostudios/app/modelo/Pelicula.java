@@ -1,4 +1,4 @@
-package com.appladostudios.app.modelo;
+package com.applaudostudios.app.modelo;
 
 import java.io.Serializable;
 
@@ -107,8 +107,8 @@ public class Pelicula implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Pelicula [id=" + idPelicula + ", title=" + titulo + ", direccion=" + direccion + ", prod=" + produccion
-				+ ", ano=" + ano + ", genero=" + genero + ", sinopsis" + sinopsis + ", canti=" + cantidad + "]";
+		return "Pelicula [id=" + idPelicula + ", titulo=" + titulo + ", direccion=" + direccion + ", produccion=" + produccion
+				+ ", ano=" + ano + ", genero=" + genero + ", sinopsis" + sinopsis + ", cantidad=" + cantidad + "]";
 	}
 
 	public void setSinopsis(String sinopsis) {
